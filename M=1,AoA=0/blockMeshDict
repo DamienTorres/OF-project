@@ -32,9 +32,9 @@ vertices
 
 blocks
 (
-    hex (0 1 7 6) (20 20 1) simpleGrading (1 1 1)  // Block 0
-    hex (1 2 3 7) (20 20 1) simpleGrading (1 1 1)  // Block 1 (Ramp)
-    hex (2 3 8 9 4 5) (40 20 1) simpleGrading (1 1 1)  // Block 2
+    hex (0 1 7 6) (40 40 1) simpleGrading (1 1 1)  // Block 0
+    hex (1 2 3 7) (80 40 1) simpleGrading (1 1 1)  // Block 1 (Ramp)
+    hex (2 3 8 9 4 5) (40 40 1) simpleGrading (1 1 1)  // Block 2
 );
 
 edges
