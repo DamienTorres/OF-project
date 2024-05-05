@@ -1,0 +1,102 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+};
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 1.0;
+
+vertices
+(
+    (-5 0 0)        //0 Inlet start
+    (0 0 0)         //1 Wedge start bottom
+    (3 0.5 0)       //2 Wedge tip - based on a 15 degree slope
+    (5 0.5 0)       //3 End of floor
+    (5 1 0)         //4 Outlet top
+    (3 1 0)         //5 Wedge top
+    (0 1 0)         //6 Wedge start top
+    (-5 1 0)        //7 Inlet top
+);
+
+blocks
+(
+    hex (0 1 6 7) (40 40 1) simpleGrading (1 1 1) // Block 0: Inlet section
+    hex (1 2 5 6) (100 40 1) simpleGrading (1 1 1) // Block 1: Wedge section
+    hex (2 3 4 5) (60 40 1) simpleGrading (1 1 1) // Block 2: Outlet section
+);
+
+edges
+(
+    // Optional curved edges here
+);
+
+boundary
+(
+    inlet
+    {
+        type patch;
+        faces
+        (
+            (0 7 6 1)
+        );
+    }
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (3 4 5 2)
+        );
+    }
+    bottom
+    {
+        type wall;
+        faces
+        (
+            (0 1 2 3)
+        );
+    }
+    top
+    {
+        type symmetryPlane;
+        faces
+        (
+            (7 6 5 4)
+        );
+    }
+    wedge
+    {
+        type wall;
+        faces
+        (
+            (1 2 5 6)
+        );
+    }
+);
+
+mergePatchPairs
+(
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //
+
+
+
+
+
+
