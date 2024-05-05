@@ -18,28 +18,33 @@ convertToMeters 1;
 
 vertices
 (
-   (0 0 0)        // Vertex 0: Inlet, bottom left
-    (1 0 0)        // Vertex 1: Start of ramp, bottom right of block 0
-    (1 0.2 0)      // Vertex 2: Start of ramp, top right of block 0
-    (2 0.5 0)      // Vertex 3: End of ramp, top left of block 2
-    (3 0.5 0)      // Vertex 4: Outlet, top right of block 2
-    (3 0 0)        // Vertex 5: Outlet, bottom right of block 2
-    (0 1 0)        // Vertex 6: Inlet, top left
-    (1 1 0)        // Vertex 7: Start of ramp, top right of block 0
-    (2 1 0)        // Vertex 8: End of ramp, top left of block 2
-    (3 1 0)        // Vertex 9: Outlet, top right of block 2
+    (0 0 -0.05)       //0
+    (0.6 0 -0.05)      //1
+    (1 0.10718 -0.05)     //2
+    (0 1 -0.05)      //3
+    (0.6 1 -0.05)      //4
+    (1 1 -0.05)     //5
+    (3 0.2 -0.05)    //6 
+    (3 1 -0.05)      //7
+    (0 0 0.05)       //8
+    (0.6 0 0.05)      //9
+    (1 0.10718 0.05)     //10
+    (0 1 0.05)      //11
+    (0.6 1 0.05)      //12
+    (1 1 0.05)     //13
+    (3 0.2 0.05)    //14 
+    (3 1 0.05)      //15
 );
 
 blocks
 (
-    hex (0 1 7 6) (40 40 1) simpleGrading (1 1 1)  // Block 0
-    hex (1 2 3 7) (80 40 1) simpleGrading (1 1 1)  // Block 1 (Ramp)
-    hex (2 3 8 9 4 5) (40 40 1) simpleGrading (1 1 1)  // Block 2
+    hex (0 1 4 3 8 9 12 11)   (24 8 1) simpleGrading (1 1 1)
+    hex (1 2 5 4 9 10 13 12) (24 32 1) simpleGrading (1 1 1)
+    hex (2 6 7 5 10 14 15 13) (96 32 1) simpleGrading (1 1 1)
 );
 
 edges
 (
-    // Optionally define curved edges here if needed
 );
 
 boundary
@@ -49,7 +54,9 @@ boundary
         type patch;
         faces
         (
-            (0 6 7 1)
+
+            (0 8 11 3)
+
         );
     }
     outlet
@@ -57,7 +64,7 @@ boundary
         type patch;
         faces
         (
-            (4 5 9 8)
+            (6 7 15 14)
         );
     }
     bottom
@@ -65,7 +72,7 @@ boundary
         type symmetryPlane;
         faces
         (
-            (0 1 5 4)
+            (0 1 9 8)
         );
     }
     top
@@ -73,15 +80,18 @@ boundary
         type symmetryPlane;
         faces
         (
-            (6 7 8 9)
+            (3 11 12 4)
+            (4 12 13 5)
+            (5 13 15 7)
         );
     }
     obstacle
     {
-        type wall;
+        type patch;
         faces
         (
-            (1 2 3 7)
+            (1 2 10 9)
+            (2 6 14 10)
         );
     }
 );
